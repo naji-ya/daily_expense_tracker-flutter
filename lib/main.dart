@@ -1,3 +1,4 @@
+import 'package:daily_expense_tracker/provider/expenseProvider.dart';
 import 'package:daily_expense_tracker/provider/userprovider.dart';
 import 'package:daily_expense_tracker/screens/auth/loginRegisterScreen.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,11 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ExpenseProvider()), // Add ExpenseProvider
+      ],
       child: MyApp(),
     ),
   );
@@ -18,7 +22,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expense Tracker',
-      home: LoginRegisterScreen(),
+      theme: ThemeData(
+
+        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+        scaffoldBackgroundColor: Colors.black,
+        primarySwatch: Colors.orange,
+
+      ),
+      home: LoginRegisterScreen(), // Start with login/register screen
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:daily_expense_tracker/screens/auth/loginRegisterScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +20,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> register(String username, String email, String password) async {
-    // Simulate a registration process (you would typically send this to a backend)
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', username);
     await prefs.setString('email', email);
@@ -35,25 +35,36 @@ class UserProvider with ChangeNotifier {
   Future<void> login(String email, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // Simulate a login process (you would typically verify with a backend)
-    if (prefs.getString('email') == email && prefs.getString('password') == password) {
+    // Get the stored email and password
+    String? storedEmail = prefs.getString('email');
+    String? storedPassword = prefs.getString('password');
+
+    // Check if email and password match
+    if (storedEmail == email && storedPassword == password) {
       _username = prefs.getString('username') ?? '';
       _email = email;
       _isLoggedIn = true;
       await prefs.setBool('isLoggedIn', true);
       notifyListeners();
     } else {
-      throw Exception('Invalid email or password');
+      throw Exception('Invalid email or password'); // This exception will be caught in the UI
     }
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', false);
     _isLoggedIn = false;
     _username = '';
     _email = '';
     notifyListeners();
+
+    // Navigate to the Login Screen
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginRegisterScreen()), // Replace with your actual LoginScreen widget
+          (route) => false, // Remove all previous routes
+    );
   }
 
   Future<void> clearUserData() async {

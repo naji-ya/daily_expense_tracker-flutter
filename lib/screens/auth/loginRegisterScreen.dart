@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../provider/userprovider.dart';
 import '../homeScreen.dart';
 
-
 class LoginRegisterScreen extends StatefulWidget {
   @override
   _LoginRegisterScreenState createState() => _LoginRegisterScreenState();
@@ -62,8 +61,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           _passwordController.text,
         );
         setState(() {
-          _isLoginMode = true; // Switch to login mode
-          // Clear the text fields
+          _isLoginMode = true; // Switch to login mode after registration
           _emailController.clear();
           _passwordController.clear();
           _confirmPasswordController.clear();
@@ -79,129 +77,143 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue, Colors.blueAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(20),
-            child: Card(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        _isLoginMode ? 'Login' : 'Register',
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 20),
-                      if (!_isLoginMode)
-                        TextFormField(
-                          controller: _usernameController,
-                          decoration: InputDecoration(labelText: 'Username'),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a username.';
-                            }
-                            return null;
-                          },
-                        ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(20),
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            color: Colors.white10,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _isLoginMode ? 'Login' : 'Register',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange),
+                    ),
+                    SizedBox(height: 20),
+                    if (!_isLoginMode)
                       TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(labelText: 'Email'),
-                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(color: Colors.white70),
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person),
+                          labelText: 'Username',
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
                         validator: (value) {
-                          if (value == null || value.isEmpty || !value.contains('@')) {
-                            return 'Please enter a valid email.';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a username.';
                           }
                           return null;
                         },
                       ),
-                      TextFormField(
-                        controller: _passwordController,
+                    SizedBox(height: 10),
+                    TextFormField( style: TextStyle(color: Colors.white70),
+                      controller: _emailController,
+                      decoration: InputDecoration( prefixIcon: Icon(Icons.email),
+                        labelText: 'Email',
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty || !value.contains('@')) {
+                          return 'Please enter a valid email.';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField( style: TextStyle(color: Colors.white70),
+                      controller: _passwordController,
+                      decoration: InputDecoration( prefixIcon: Icon(Icons.lock),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        labelText: 'Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: !_isPasswordVisible,
+                      validator: (value) {
+                        if (value == null || value.length < 6) {
+                          return 'Password must be at least 6 characters.';
+                        }
+                        return null;
+                      },
+                    ),
+                    if (!_isLoginMode) // Show Confirm Password only if in Register mode
+                      SizedBox(height: 10),
+                    if (!_isLoginMode)
+                      TextFormField( style: TextStyle(color: Colors.white70),
+                        controller: _confirmPasswordController,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          prefixIcon: Icon(Icons.lock),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                          labelText: 'Confirm Password',
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                              _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
                             ),
                             onPressed: () {
                               setState(() {
-                                _isPasswordVisible = !_isPasswordVisible;
+                                _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
                               });
                             },
                           ),
                         ),
-                        obscureText: !_isPasswordVisible,
+                        obscureText: !_isConfirmPasswordVisible,
                         validator: (value) {
-                          if (value == null || value.length < 6) {
-                            return 'Password must be at least 6 characters.';
+                          if (value == null || value != _passwordController.text) {
+                            return 'Passwords do not match.';
                           }
                           return null;
                         },
                       ),
-                      if (!_isLoginMode)
-                        TextFormField(
-                          controller: _confirmPasswordController,
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                                });
-                              },
-                            ),
-                          ),
-                          obscureText: !_isConfirmPasswordVisible,
-                          validator: (value) {
-                            if (value == null || value != _passwordController.text) {
-                              return 'Passwords do not match.';
-                            }
-                            return null;
-                          },
-                        ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: _isLoginMode ? _login : _register,
-                        child: Text(_isLoginMode ? 'Login' : 'Register'),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15), backgroundColor: Colors.blueAccent,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _isLoginMode ? _login : _register,
+                      child: Text(_isLoginMode ? 'Login' : 'Register',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(270, 50),
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                        backgroundColor: Colors.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _isLoginMode = !_isLoginMode;
-                            // Clear the text fields when switching modes
-                            _emailController.clear();
-                            _passwordController.clear();
-                            _confirmPasswordController.clear();
-                            _usernameController.clear(); // Clear username field if switching to login
-                          });
-                        },
-                        child: Text(_isLoginMode
+                    ),
+                    SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _isLoginMode = !_isLoginMode;
+                          _emailController.clear();
+                          _passwordController.clear();
+                          _confirmPasswordController.clear();
+                          _usernameController.clear();
+                        });
+                      },
+                      child: Text(
+                        _isLoginMode
                             ? "Don't have an account? Register"
-                            : "Already have an account? Login"),
+                            : "Already have an account? Login",
+                        style: TextStyle(color: Colors.white60),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
