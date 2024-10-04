@@ -23,13 +23,13 @@ class HomeScreen extends StatelessWidget {
         actions: [
           Theme(
       data: Theme.of(context).copyWith(
-        iconTheme: IconThemeData(color: Colors.white70), // Change the icon color to white70
+        iconTheme: IconThemeData(color: Colors.white70),
       ),
             child: PopupMenuButton<String>(
 
               onSelected: (value) {
                 if (value == 'logout') {
-                  userProvider.logout(context); // Call logout method from UserProvider
+                  userProvider.logout(context);
                 }
               },
               itemBuilder: (BuildContext context) {

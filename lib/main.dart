@@ -10,7 +10,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => ExpenseProvider()), // Add ExpenseProvider
+        ChangeNotifierProvider(create: (context) => ExpenseProvider()),
       ],
       child: MyApp(),
     ),

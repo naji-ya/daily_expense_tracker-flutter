@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart'; // Import for date formatting
+import 'package:intl/intl.dart';
 import '../provider/expenseProvider.dart';
 import 'editExpense.dart';
 
@@ -13,7 +13,8 @@ class ExpenseListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Expense List',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
       ),
-      body: expenseProvider.isLoading // Check loading state
+      // Check loading state
+      body: expenseProvider.isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(shrinkWrap: true,
         itemCount: expenseProvider.expenses.length,
@@ -44,13 +45,13 @@ class ExpenseListScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => EditExpenseScreen(expense: expense),
                         ),
-                      ); // Implement edit functionality
+                      );
                     },
                   ),
                   IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
-                      expenseProvider.deleteExpense(expense.id!); // Delete the expense
+                      expenseProvider.deleteExpense(expense.id!);
                     },
                   ),
                 ],

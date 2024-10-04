@@ -7,7 +7,8 @@ class AddExpenseScreen extends StatelessWidget {
   final _amountController = TextEditingController();
   final _descriptionController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
-  String _selectedCategory = 'Food'; // Default category
+  //default
+  String _selectedCategory = 'Food';
 
   final List<String> _categories = ['Food', 'Transport', 'Entertainment', 'Shopping','Other'];
 
