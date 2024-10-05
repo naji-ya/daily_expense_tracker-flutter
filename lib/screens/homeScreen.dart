@@ -7,6 +7,8 @@ import 'AddExpenseScreen.dart';
 import 'expenseListScreen.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -17,13 +19,13 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           userProvider.username,
-          style: TextStyle(color: Colors.white70),
+          style: const TextStyle(color: Colors.white70),
         ),
-        leading: Icon(Icons.person,color: Colors.white70,),
+        leading: const Icon(Icons.person,color: Colors.white70,),
         actions: [
           Theme(
       data: Theme.of(context).copyWith(
-        iconTheme: IconThemeData(color: Colors.white70),
+        iconTheme: const IconThemeData(color: Colors.white70),
       ),
             child: PopupMenuButton<String>(
 
@@ -37,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   return PopupMenuItem<String>(
 
                     value: choice.toLowerCase(),
-                    child: Text(choice,style: TextStyle(),),
+                    child: Text(choice,style: const TextStyle(),),
                   );
                 }).toList();
               },
@@ -50,7 +52,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               Container(
                 height: 200,
                 width: 270,
@@ -66,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Total Expenses',
                         style: TextStyle(
                           fontSize: 26,
@@ -74,10 +76,10 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.white70,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         '₹${expenseProvider.totalExpenses}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 23,
                           color: Colors.white70,
                         ),
@@ -86,43 +88,43 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ExpenseListScreen()), // Navigate to ExpenseListScreen
+                    MaterialPageRoute(builder: (context) => const ExpenseListScreen()), // Navigate to ExpenseListScreen
                   );
                 },
-                child: Text('View Expenses'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black, padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  foregroundColor: Colors.black, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(11),
                   ),
                   backgroundColor: Colors.orange,
                   elevation: 5,
-                  minimumSize: Size(240,40)
+                  minimumSize: const Size(240,40)
                 ),
+                child: const Text('View Expenses'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SummaryScreen()), // Navigate to SummaryScreen
+                    MaterialPageRoute(builder: (context) => const SummaryScreen()), // Navigate to SummaryScreen
                   );
                 },
-                child: Text('View Chart'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black, padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  foregroundColor: Colors.black, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(11),
                   ),
                   backgroundColor: Colors.orange,
                   elevation: 5,
-                    minimumSize: Size(240,40)
+                    minimumSize: const Size(240,40)
                 ),
+                child: const Text('View Chart'),
               ),
             ],
           ),
@@ -136,7 +138,7 @@ class HomeScreen extends StatelessWidget {
           );
         },
         backgroundColor: Colors.orange,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

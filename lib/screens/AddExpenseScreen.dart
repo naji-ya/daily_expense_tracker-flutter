@@ -12,12 +12,14 @@ class AddExpenseScreen extends StatelessWidget {
 
   final List<String> _categories = ['Food', 'Transport', 'Entertainment', 'Shopping','Other'];
 
+  AddExpenseScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
 
-        title: Text('Add Expense',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
+        title: const Text('Add Expense',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
         backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
@@ -25,9 +27,9 @@ class AddExpenseScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              SizedBox(height: 35,),
+              const SizedBox(height: 35,),
               TextField(
-                style: TextStyle(color: Colors.white70),
+                style: const TextStyle(color: Colors.white70),
                 controller: _amountController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(labelText: 'Amount',
@@ -35,13 +37,13 @@ class AddExpenseScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(11)
                 )),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               DropdownButtonFormField(dropdownColor: Colors.black,
                 value: _selectedCategory,
                 items: _categories.map((String category) {
                   return DropdownMenuItem(
                     value: category,
-                    child: Text(category,style: TextStyle(color: Colors.white70),),
+                    child: Text(category,style: const TextStyle(color: Colors.white70),),
                   );
                 }).toList(),
                 onChanged: (newValue) {
@@ -53,20 +55,20 @@ class AddExpenseScreen extends StatelessWidget {
                     )
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
-                style: TextStyle(color: Colors.white70),
+                style: const TextStyle(color: Colors.white70),
                 controller: _descriptionController,
                 decoration: InputDecoration(labelText: 'Description (optional)',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(11)
                     )),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Date: ${_selectedDate.toLocal()}".split(' ')[0],style: TextStyle(color: Colors.white24),),
+                  Text("Date: ${_selectedDate.toLocal()}".split(' ')[0],style: const TextStyle(color: Colors.white24),),
                   TextButton(
                     onPressed: () async {
                       DateTime? pickedDate = await showDatePicker(
@@ -79,11 +81,11 @@ class AddExpenseScreen extends StatelessWidget {
                         _selectedDate = pickedDate;
                       }
                     },
-                    child: Text("Select date"),
+                    child: const Text("Select date"),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   final amount = double.tryParse(_amountController.text);
@@ -96,15 +98,15 @@ class AddExpenseScreen extends StatelessWidget {
                     );
                     Navigator.pop(context); // Go back to the previous screen
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Please enter a valid amount'),
                     ));
                   }
                 },
-                child: Text('Add Expense',style: TextStyle(color: Colors.black),),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange,
-                minimumSize: Size(280, 50),
+                minimumSize: const Size(280, 50),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                child: const Text('Add Expense',style: TextStyle(color: Colors.black),),
               ),
             ],
           ),

@@ -5,6 +5,8 @@ import '../provider/expenseProvider.dart';
 
 
 class SummaryScreen extends StatelessWidget {
+  const SummaryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final expenseProvider = Provider.of<ExpenseProvider>(context);
@@ -17,17 +19,17 @@ class SummaryScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expense Summary',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
+        title: const Text('Expense Summary',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
         backgroundColor: Colors.black,
       ),
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: PieChart(
           PieChartData(
             sections: categoryTotals.entries.map((entry) {
               return PieChartSectionData(
-                titleStyle: TextStyle(fontSize: 10),
+                titleStyle: const TextStyle(fontSize: 10),
                 color: Colors.primaries[categoryTotals.keys.toList().indexOf(entry.key) % Colors.primaries.length],
                 value: entry.value,
                 title: entry.key,

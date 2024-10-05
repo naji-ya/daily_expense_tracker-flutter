@@ -5,23 +5,25 @@ import '../provider/expenseProvider.dart';
 import 'editExpense.dart';
 
 class ExpenseListScreen extends StatelessWidget {
+  const ExpenseListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final expenseProvider = Provider.of<ExpenseProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expense List',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
+        title: const Text('Expense List',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
       ),
       // Check loading state
       body: expenseProvider.isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(shrinkWrap: true,
         itemCount: expenseProvider.expenses.length,
         itemBuilder: (context, index) {
           final expense = expenseProvider.expenses[index];
           return Card(color:Colors.white10,
-            margin: EdgeInsets.all(7),
+            margin: const EdgeInsets.all(7),
             child: ListTile(iconColor: Colors.orange,
 
               textColor: Colors.white70,
@@ -38,7 +40,7 @@ class ExpenseListScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -49,7 +51,7 @@ class ExpenseListScreen extends StatelessWidget {
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       expenseProvider.deleteExpense(expense.id!);
                     },

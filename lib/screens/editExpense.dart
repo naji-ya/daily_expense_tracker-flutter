@@ -7,7 +7,7 @@ import 'package:intl/intl.dart'; //for datetime
 class EditExpenseScreen extends StatefulWidget {
   final Expense expense;
 
-  EditExpenseScreen({required this.expense});
+  const EditExpenseScreen({super.key, required this.expense});
 
   @override
   _EditExpenseScreenState createState() => _EditExpenseScreenState();
@@ -35,7 +35,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Expense',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
+        title: const Text('Edit Expense',style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold),),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,9 +44,9 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 TextFormField(
-                  style: TextStyle(color: Colors.white70),
+                  style: const TextStyle(color: Colors.white70),
                   initialValue: _amount.toString(),
                   decoration: InputDecoration(labelText: 'Amount',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(11))),
@@ -61,8 +61,8 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
                     _amount = double.parse(value!);
                   },
                 ),
-                SizedBox(height: 15,),
-                TextFormField( style: TextStyle(color: Colors.white70),
+                const SizedBox(height: 15,),
+                TextFormField( style: const TextStyle(color: Colors.white70),
                   initialValue: DateFormat('yyyy-MM-dd').format(_date),
                   decoration: InputDecoration(labelText: 'Date', border: OutlineInputBorder(borderRadius: BorderRadius.circular(11))),
                   readOnly: true,
@@ -80,8 +80,8 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
                     }
                   },
                 ),
-                SizedBox(height: 15,),
-                DropdownButtonFormField<String>( style: TextStyle(color: Colors.white70),
+                const SizedBox(height: 15,),
+                DropdownButtonFormField<String>( style: const TextStyle(color: Colors.white70),
                   value: _category,
                   decoration: InputDecoration(labelText: 'Category', border: OutlineInputBorder(borderRadius: BorderRadius.circular(11))),
                   items: <String>['Food', 'Transport', 'Entertainment','Shopping', 'Other']
@@ -97,19 +97,19 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15,),
-                TextFormField( style: TextStyle(color: Colors.white70),
+                const SizedBox(height: 15,),
+                TextFormField( style: const TextStyle(color: Colors.white70),
                   initialValue: _description,
                   decoration: InputDecoration(labelText: 'Description (optional)', border: OutlineInputBorder(borderRadius: BorderRadius.circular(11))),
                   onSaved: (value) {
                     _description = value;
                   },
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11),),
-                  minimumSize: Size(270, 50)),
+                  minimumSize: const Size(270, 50)),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
@@ -123,7 +123,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text('Update Expense',style: TextStyle(color: Colors.black),),
+                  child: const Text('Update Expense',style: TextStyle(color: Colors.black),),
                 ),
               ],
             ),

@@ -12,24 +12,27 @@ void main() {
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => ExpenseProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Expense Tracker',
       theme: ThemeData(
 
-        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
         scaffoldBackgroundColor: Colors.black,
         primarySwatch: Colors.orange,
 
       ),
-      home: LoginRegisterScreen(), // Start with login/register screen
+      home: const LoginRegisterScreen(), // Start with login/register screen
     );
   }
 }

@@ -62,7 +62,7 @@ class UserProvider with ChangeNotifier {
     // Navigate to the Login Screen
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => LoginRegisterScreen()), // Replace with your actual LoginScreen widget
+      MaterialPageRoute(builder: (context) => const LoginRegisterScreen()), // Replace with your actual LoginScreen widget
           (route) => false, // Remove all previous routes
     );
   }

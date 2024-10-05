@@ -4,6 +4,8 @@ import '../../provider/userprovider.dart';
 import '../homeScreen.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
+  const LoginRegisterScreen({super.key});
+
   @override
   _LoginRegisterScreenState createState() => _LoginRegisterScreenState();
 }
@@ -25,7 +27,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
       if (Provider.of<UserProvider>(context, listen: false).isLoggedIn) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       }
     });
@@ -38,7 +40,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         await userProvider.login(_emailController.text, _passwordController.text);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -49,7 +51,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
       if (_passwordController.text != _confirmPasswordController.text) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Passwords do not match')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
         return;
       }
 
@@ -67,7 +69,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           _confirmPasswordController.clear();
           _usernameController.clear();
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Registration successful! Please log in.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registration successful! Please log in.')));
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       }
@@ -79,7 +81,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Card(
             elevation: 5,
             shape: RoundedRectangleBorder(
@@ -95,15 +97,15 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   children: [
                     Text(
                       _isLoginMode ? 'Login' : 'Register',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange),
+                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     if (!_isLoginMode)
                       TextFormField(
-                        style: TextStyle(color: Colors.white70),
+                        style: const TextStyle(color: Colors.white70),
                         controller: _usernameController,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: const Icon(Icons.person),
                           labelText: 'Username',
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         ),
@@ -114,10 +116,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           return null;
                         },
                       ),
-                    SizedBox(height: 10),
-                    TextFormField( style: TextStyle(color: Colors.white70),
+                    const SizedBox(height: 10),
+                    TextFormField( style: const TextStyle(color: Colors.white70),
                       controller: _emailController,
-                      decoration: InputDecoration( prefixIcon: Icon(Icons.email),
+                      decoration: InputDecoration( prefixIcon: const Icon(Icons.email),
                         labelText: 'Email',
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -129,10 +131,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 10),
-                    TextFormField( style: TextStyle(color: Colors.white70),
+                    const SizedBox(height: 10),
+                    TextFormField( style: const TextStyle(color: Colors.white70),
                       controller: _passwordController,
-                      decoration: InputDecoration( prefixIcon: Icon(Icons.lock),
+                      decoration: InputDecoration( prefixIcon: const Icon(Icons.lock),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         labelText: 'Password',
                         suffixIcon: IconButton(
@@ -155,12 +157,12 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       },
                     ),
                     if (!_isLoginMode) // Show Confirm Password only if in Register mode
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     if (!_isLoginMode)
-                      TextFormField( style: TextStyle(color: Colors.white70),
+                      TextFormField( style: const TextStyle(color: Colors.white70),
                         controller: _confirmPasswordController,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
+                          prefixIcon: const Icon(Icons.lock),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                           labelText: 'Confirm Password',
                           suffixIcon: IconButton(
@@ -182,20 +184,20 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           return null;
                         },
                       ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _isLoginMode ? _login : _register,
-                      child: Text(_isLoginMode ? 'Login' : 'Register',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(270, 50),
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                        minimumSize: const Size(270, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                         backgroundColor: Colors.orange,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
+                      child: Text(_isLoginMode ? 'Login' : 'Register',style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextButton(
                       onPressed: () {
                         setState(() {
@@ -210,7 +212,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         _isLoginMode
                             ? "Don't have an account? Register"
                             : "Already have an account? Login",
-                        style: TextStyle(color: Colors.white60),
+                        style: const TextStyle(color: Colors.white60),
                       ),
                     ),
                   ],
